@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #0e0f12;
+  --mist: #f7f4ee;
+  --breeze: #d7e0ff;
+  --ember: #ff7a3d;
+  --glow: #ffedc2;
+}
+
+body {
+  @apply bg-mist text-ink font-sans;
+  background-image: radial-gradient(circle at top left, #fff1d8 0%, transparent 50%),
+    radial-gradient(circle at 30% 80%, #dfe6ff 0%, transparent 55%),
+    linear-gradient(120deg, #f6f0e8 0%, #f8f5f0 40%, #eef2ff 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.text-shadow {
+  text-shadow: 0 10px 25px rgba(15, 17, 25, 0.15);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.section-grid {
+  background-image: linear-gradient(transparent 95%, rgba(15, 17, 25, 0.04) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(15, 17, 25, 0.04) 95%);
+  background-size: 28px 28px;
+}

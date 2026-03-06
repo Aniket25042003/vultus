@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vultus
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./vultus-api/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  vultus-ml:
+    build: ./vultus-ml
+    environment:
+      FACE_MODEL_PATH: /models/backbone_best.pt
+      FACE_DETECT_MODEL_PATH: /models/yolov8l_100e.pt
+      EMOTION_MODEL_PATH: /models/emotion-ferplus-8.onnx
+    volumes:
+      - ./backbone_best.pt:/models/backbone_best.pt:ro
+      - ./yolov8l_100e.pt:/models/yolov8l_100e.pt:ro
+      - ./emotion-ferplus-8.onnx:/models/emotion-ferplus-8.onnx:ro
+    ports:
+      - "8000:8000"
+
+  vultus-api:
+    build: ./vultus-api
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/vultus
+      JWT_SECRET: replace_me
+      JWT_EXPIRES_IN: 1d
+      CORS_ORIGIN: http://localhost:5173
+      FACE_MODEL_PATH: /models/backbone_best.pt
+      FACE_INFERENCE_URL: http://vultus-ml:8000
+      FACE_MATCH_THRESHOLD: 0.4
+    volumes:
+      - ./vultus-api:/app
+      - /app/node_modules
+      - ./backbone_best.pt:/models/backbone_best.pt:ro
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+      - vultus-ml
+
+  vultus-web:
+    build: ./vultus-web
+    environment:
+      VITE_API_URL: http://localhost:4000
+    volumes:
+      - ./vultus-web:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - vultus-api
+
+volumes:
+  postgres_data:
