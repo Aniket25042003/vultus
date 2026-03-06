@@ -2,3 +2,4 @@
 *.pth
 weights/
 models/
+test-images/
