@@ -131,6 +131,25 @@ const LandingPage = () => (
         </Card>
       </section>
     </main>
+
+    <footer className="mx-auto mt-auto w-full max-w-6xl border-t border-black/10 px-6 py-8">
+      <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <p className="text-sm text-black/60">
+          © {new Date().getFullYear()} VULTUS Inc. All rights reserved.
+        </p>
+        <div className="flex items-center space-x-6 text-sm">
+          <Link to="/terms" className="text-black/60 transition-colors hover:text-black">
+            Terms of Service
+          </Link>
+          <Link to="/privacy" className="text-black/60 transition-colors hover:text-black">
+            Privacy Policy
+          </Link>
+          <a href="mailto:contact@vultus.com" className="text-black/60 transition-colors hover:text-black">
+            Contact
+          </a>
+        </div>
+      </div>
+    </footer>
   </div>
 );
 

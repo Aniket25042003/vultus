@@ -1,7 +1,4 @@
-import { expect } from 'vitest';
-import * as matchers from '@testing-library/jest-dom/matchers';
-
-expect.extend(matchers);
+import '@testing-library/jest-dom/vitest';
 
 class MockIntersectionObserver {
   observe() {}
@@ -9,4 +6,4 @@ class MockIntersectionObserver {
   disconnect() {}
 }
 
-globalThis.IntersectionObserver = MockIntersectionObserver;
+globalThis.IntersectionObserver = MockIntersectionObserver as any;
