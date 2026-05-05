@@ -9,7 +9,7 @@ import { Card, CardDescription, CardTitle } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Input } from '../components/ui/input';
-
+import { Logo } from '../components/ui/logo';
 const DashboardPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(() => getUser());
@@ -356,10 +356,17 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen px-6 py-10">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between">
-        <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-black/40">VULTUS</p>
-          <h1 className="text-3xl font-semibold">Welcome, {user.fullName ?? user.email}</h1>
+        <div className="flex items-center gap-6">
+          <Logo className="h-12 w-12" />
+
+          <div>
+            <p className="text-sm uppercase tracking-[0.25em] text-black/40">VULTUS</p>
+            <h1 className="text-3xl font-semibold">
+              Welcome, {user.fullName ?? user.email}
+            </h1>
+          </div>
         </div>
+
         <div className="flex items-center gap-3">
           <Badge tone="neutral">{user.role}</Badge>
           <Button
